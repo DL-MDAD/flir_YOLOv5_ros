@@ -9,7 +9,7 @@ Clone repo and install [requirements.txt](https://github.com/YeJin20/flir_YOLOv5
 BFLY-PGE-31S4C-C : Blackfly 3.2 MP Color GigE PoE (Sony IMX265), 2048x1536 
 
 
-Download 'spinnaker-2.0.0.147-aShell64'
+Download 'spinnaker-2.0.0.147-amd64'
 ```Shell
 ./install_spinnaker.sh # install
 sudo spinview # check camera connection
