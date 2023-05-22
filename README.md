@@ -46,69 +46,63 @@ source /opt/ros/melodic/setup.bash
 ```
 
 
+#### 5. Dependencies for building packages
+```Shell
+sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+sudo apt install python-rosdep
+sudo rosdep init
+rosdep update
+```
+
+
 ## 🥢 pointgrey_camera_driver for ROS
 ```Shell
-cd ~/catkin_ws/src && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git
-cd ~/catkin_ws/ && catkin_make
+sudo apt-get install ros-melodic-pointgrey-camera-driver
 ```
 
 ## 🥢 FLIR_camera_driver for ROS
 ```Shell
 cd ~/catkin_ws/src && git clone https://github.com/ros-drivers/flir_camera_driver.git
 cd ~/catkin_ws/ && catkin_make
+source ~/catkin_ws/devel/setup.bash
 roslaunch spinnaker_camera_driver camera.launch
 ```
 
 
-##🥢 YOLOv5 in docker
+## 🥢 YOLOv5 in docker
 ```Shell
-docker pull osrf/ros:noetic-desktop-full
-docker run --rm --gpus all nvidia/cuda:11.8.0-base-ubuntu22.04 nvidia-smi
-docker run -it --gpus all --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v <local_workspace>:/root/share -e DISPLAY=unix$DISPLAY --privileged --name "ROS_noetic" osrf/ros:noetic-desktop-full
+docker pull yejin21/flir_yolov5_ros
+docker run -it --gpus all --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:ro -v <local_workspace>:/root/share -e DISPLAY=unix$DISPLAY --privileged --name <container_name> yejin21/flir_yolov5_ros
 ```
 
 
-#### 1. Environment setup
-```Shell
-cd /root/share
-mkdir yolov5 && cd yolov5 && mkdir src
-```
+## 🥢 Launch
 
-#### 2. add in './bashrc'
-```Shell
-source /opt/ros/noetic/setup.bash
-```
 
-#### 3. build yolov5
-```Shell
-cd ~/catkin_ws
-catkin_make
-```
+### 🛹 Terminal 1
 
-#### 4. Clone the packages to ROS workspace nd install requirement for YOLOv5 submodule:
-```Shell
-cd <ros_workspace>/src
-apt-get update && apt-get install -y git
-apt-get install -y python3-pip
-git clone https://github.com/mats-robotics/detection_msgs.git
-git clone --recurse-submodules https://github.com/mats-robotics/yolov5_ros.git 
-cd yolov5_ros/src/yolov5
-pip install -r requirements.txt # install the requirements for yolov5
-```
 
-#### 5. Add in '.bashrc'
-```Shell
-source /root/share/catkin_ws/devel/setup.bash
-```
-
-#### 6. Build the OS packages:
+Modify "camera_serial" in <ros_workspace>/src/flir_camera_driver/spinnaker_camera_driver/launch.camera.launch
 ```Shell
 cd <ros_workspace>
-catkin build yolov5_ros # build the ROS package
+source ~/catkin_ws/devel/setup.bash
+roslaunch spinnaker_camera_driver camera.launch
 ```
 
-#### 7. Make the Python script executable
+
+### 🛹 Terminal 2
+
+
 ```Shell
-cd <ros_workspace>/src/yolov5_ros/src
-chmod +x detect.py
+docker run -it --gpus all --net=host -v <LOCAL_DIRECTORY>:/root/share --previleged --name <NEW_NAMES> <CUSTOM_NAMES>
+source /root/share/yolov5_ws/devel/setup.bash
 ```
+
+
+```Shell
+cd /root/share/yolov5_ws
+roslaunch yolov5_ros yolov5.launch
+```
+
+
+

@@ -53,3 +53,16 @@ python-rosinstall
 python-rosinstall-generator 
 python-wstool
 build-essential
+
+# FlyCapture2 -------------------------------------------------------------------------
+libraw1394-11
+libgtkmm-2.4-1v5
+libglademm-2.4-1v5
+libgtkglextmm-x11-1.2-dev
+libgtkglextmm-x11-1.2
+libusb-1.0-0
+
+# Spinnaker2 -------------------------------------------------------------------------
+libusb-1.0-0
+
+
